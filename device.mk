@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 ##************************************************************************##
-LOCAL_PATH := device/oplus/RMX2155L1
+LOCAL_PATH := device/realme/RMX2155L1
 
 ##** Soong namespaces **##
 PRODUCT_SOONG_NAMESPACES += \
@@ -139,5 +139,4 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0.vendor \
     android.hardware.gatekeeper@1.0-impl 
 
-##** Inherit the proprietary files **##
-$(call inherit-product, vendor/oplus/RMX2155L1/RMX2155L1-vendor.mk)
+##************************************************************************##

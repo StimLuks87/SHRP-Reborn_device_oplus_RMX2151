@@ -5,18 +5,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 ##*****************************************##
-##** Device Information **##
-PRODUCT_DEVICE := RMX2155L1
-PRODUCT_NAME := twrp_$(PRODUCT_DEVICE)
-PRODUCT_BRAND := realme
-PRODUCT_MODEL := Realme 7
-PRODUCT_MANUFACTURER := $(PRODUCT_BRAND)
-PRODUCT_RELEASE_NAME := RMX2155
-
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRODUCT_NAME=RMX2155 \
-    BUILD_PRODUCT=RMX2155L1 \
-    TARGET_DEVICE=RMX2155L1 
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
@@ -31,7 +19,23 @@ $(call inherit-product-if-exists, vendor/pb/config/common.mk)
 $(call inherit-product-if-exists, vendor/twrp/config/common.mk)
 
 ##** Inherit from RMX2155L1 device **##
-$(call inherit-product, device/oplus/RMX2155L1/device.mk)
+$(call inherit-product, device/realme/RMX2155L1/device.mk)
+
+##** Device Information **##
+PRODUCT_DEVICE := RMX2155L1
+PRODUCT_NAME := twrp_$(PRODUCT_DEVICE)
+PRODUCT_BRAND := realme
+PRODUCT_MODEL := Realme 7
+PRODUCT_MANUFACTURER := $(PRODUCT_BRAND)
+PRODUCT_RELEASE_NAME := RMX2155
+
+PRODUCT_SYSTEM_NAME := RMX2155
+PRODUCT_SYSTEM_DEVICE := RMX2155L1
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    TARGET_DEVICE=$(PRODUCT_SYSTEM_DEVICE) \
+    PRODUCT_NAME=$(PRODUCT_SYSTEM_NAME) \
+    TARGET_PRODUCT=$(PRODUCT_SYSTEM_NAME) \
 
 PRODUCT_GMS_CLIENTID_BASE := android-$(PRODUCT_MANUFCATURER)
 ##************************************************************************##
