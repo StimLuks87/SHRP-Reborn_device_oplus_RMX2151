@@ -17,7 +17,6 @@ DEXPREOPT_GENERATE_APEX_IMAGE := true
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_PREBUILT_ELF_FILES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
-BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true
 
 ##** Architecture **##
 TARGET_ARCH := arm64
@@ -32,7 +31,7 @@ TARGET_2ND_ARCH_VARIANT := armv8-2a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
-TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a76
+TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
 TARGET_BOARD_SUFFIX := _64
 TARGET_USES_64_BIT_BINDER := true
 TARGET_SUPPORTS_64_BIT_APPS := true
@@ -55,15 +54,11 @@ MTK_HARDWARE := true
 TARGET_OTA_ASSERT_DEVICE := RMX2155,RMX2155L1,RMX2151,RMX2151L1,RMX2156L1,RMX2161L1,RMX2163L1,RM6785,salaa
 
 ##** Kernel - config **##
-BOARD_KERNEL_IMAGE_NAME := Image.gz
-BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-#BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilts/dtbo
-BOARD_KERNEL_SEPARATED_DTBO := true
+BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
-BOARD_KERNEL_CMDLINE += kpti=off
 BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery
-BOARD_KERNEL_CMDLINE += loop.max_part=7
+BOARD_KERNEL_CMDLINE += loop.max_part=70
 BOARD_KERNEL_BASE := 0x40078000                        
 BOARD_KERNEL_PAGESIZE := 2048   
 BOARD_KERNEL_OFFSET := 0x00008000                       
@@ -72,6 +67,15 @@ BOARD_KERNEL_SECOND_OFFSET := 0xbff88000
 BOARD_KERNEL_TAGS_OFFSET := 0x0bc08000                                                    
 BOARD_DTB_OFFSET := 0x0bc08000                         
 BOARD_BOOTIMG_HEADER_VERSION := 2
+
+##** Kernel - prebuilt **##
+BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilts/dtb
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/kernel/kernel
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilts/dtbo/dtbo.img
+
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_INCLUDE_RECOVERY_DTBO := true  
+
 BOARD_MKBOOTIMG_ARGS += --base $(BOARD_KERNEL_BASE)
 BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_KERNEL_PAGESIZE)
 BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
@@ -81,17 +85,6 @@ BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 
-##************************************************************************##
-##** Kernel - prebuilt **##
-TARGET_FORCE_PREBUILT_KERNEL := true
-ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/kernel-gz/kernel
-TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilts/dtb/dtb.img
-BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
-BOARD_INCLUDE_DTB_IN_BOOTIMG := 
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilts/dtbo/dtbo.img
-BOARD_KERNEL_SEPARATED_DTBO := 
-endif
 ##************************************************************************##
 
 ##** Clang - config **##
@@ -112,6 +105,8 @@ endif
 #TARGET_KERNEL_ADDITIONAL_FLAGS := \
     #LLVM=1 \
     #LLVM_IAS=1
+
+##************************************************************************##
 
 ##** Metadata **##
 BOARD_USES_METADATA_PARTITION := true
@@ -150,9 +145,12 @@ PLATFORM_VERSION := 99.87.36
 PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_FBE := true
+TW_USE_FSCRYPT_POLICY := 2
 TW_INCLUDE_CRYPTO_FBE := true
 TW_INCLUDE_FBE_METADATA_DECRYPT := true
 TW_PREPARE_DATA_MEDIA_EARLY := true
+BOOT_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+
 
 ##** AVB **##
 BOARD_AVB_ENABLE := true
@@ -173,7 +171,6 @@ RECOVERY_GRAPHICS_USE_LINELENGTH := true
 BOARD_USE_FRAMEBUFFER_ALPHA_CHANNEL := true
 BOARD_SPRUPESS_EMMC_WIPE := true
 RECOVERY_SDCARD_ON_DATA := true   
-BOARD_INCLUDE_RECOVERY_DTBO := true              
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_HAS_LARGE_FILESYSTEM := true                 
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
@@ -273,7 +270,7 @@ TW_USE_MODEL_HARDWARE_ID_FOR_DEVICE_ID := true
 TW_THEME := portrait_hdpi
 
 ##** Version/Maintainer **##
-TW_DEVICE_VERSION := RUI_V3.0_by_Stim
+TW_DEVICE_VERSION := RUI_V3.0_by_Luks
 
 ##** Debug flags **##
 TWRP_INCLUDE_LOGCAT := true
@@ -302,57 +299,7 @@ TW_CUSTOM_CPU_POS := 185
 #PB_OFFICIAL := true
 
 ##** Version/Maintainer **##
-#MAINTAINER := Stim@Luks
-
-# Device codename *
-SHRP_DEVICE_CODE := RMX2155
-
-# Path of your SHRP Tree
-SHRP_PATH := device/oplus/$(SHRP_DEVICE_CODE)
-
-# Maintainer name *
-SHRP_MAINTAINER := Stim@Luks
-
-# Recovery Type (It can be treble,normal,SAR) [Only for About Section] *
-SHRP_REC_TYPE := Treble
-
-# Recovery Type (It can be A/B or A_only) [Only for About Section] *
-SHRP_DEVICE_TYPE := A_only
-
-# Official
-SHRP_OFFICIAL := true
-
-# Notch
-SHRP_NOTCH := true
-
-# EDL
-SHRP_EDL_MODE := 0
-SHRP_INTERNAL := /sdcard
-SHRP_EXTERNAL := /sdcard1
-SHRP_OTG := /usb_otg
-SHRP_EXPRESS := true
-#SHRP_NO_SAR_AUTOMOUNT := true
-SHRP_HAS_RECOVERY_PARTITION := true
-SHRP_EXPRESS_USE_DATA := true
-
-# Path
-SHRP_REC := /dev/block/bootdevice/by-name/recovery
-
-# Dark Mode
-SHRP_DARK := true
-
-SHRP_STATUSBAR_RIGHT_PADDING := -10
-SHRP_STATUSBAR_LEFT_PADDING := -10
-
-# Flashlight
-SHRP_FLASH := 0
-SHRP_CUSTOM_FLASHLIGHT := false
-#SHRP_FONP_1 := /proc/qcom_flash
-#SHRP_FONP_2 := /proc/qcom_flash
-#SHRP_FLASH_MAX_BRIGHTNESS := 2
-
-# Magisk
-INC_IN_REC_MAGISK := true
+MAINTAINER := Luks
 
 # Property Override
 TW_OVERRIDE_SYSTEM_PROPS := "ro.build.version.sdk"
@@ -365,7 +312,7 @@ TW_OVERRIDE_SYSTEM_PROPS := "ro.build.version.sdk"
 CUSTOM_TWRP_DEVICE_VERSION := RUI_V3.0
 
 ##** version prefix is optional - the default value is "LOCAL" if nothing is set in device tree **##
-CUSTOM_TWRP_VERSION_PREFIX := by_StimLuks
+CUSTOM_TWRP_VERSION_PREFIX := by_Luks
 
 include device/common/version-info/custom_twrp_version.mk
 
