@@ -222,9 +222,9 @@ TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libashmemd_client.so
 
 ##** TWRP Configuration	**##
-TW_CLOCK_OFFSET := "PAKST-5;PAKDT"	
-TW_TIME_ZONE_VAR := "PAKST-5;PAKDT"
-TW_TIME_ZONE_GUISEL := "PAKST-5;PAKDT"	
+TW_CLOCK_OFFSET := "PAKST-5"	
+TW_TIME_ZONE_VAR := "PAKST-5"
+TW_TIME_ZONE_GUISEL := "PAKST-5"	
 TW_MILITARY_TIME := 1																																																																					
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_EXCLUDE_DEFAULT_USB_INIT := true
