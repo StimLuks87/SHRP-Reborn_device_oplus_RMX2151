@@ -1,11 +1,11 @@
-##************************************************************************##
+##*************************************************##
 #
-# Copyright (C) 2024 The LineageOS Project
-#
+# Copyright (C) 2024 The Android Open Source Project
 # SPDX-License-Identifier: Apache-2.0
 #
-##************************************************************************##
-LOCAL_PATH := device/realme/RMX2155L1
+##*************************************************##
+
+LOCAL_PATH := device/oplus/RMX2155L1
 
 ##** Soong namespaces **##
 PRODUCT_SOONG_NAMESPACES += \

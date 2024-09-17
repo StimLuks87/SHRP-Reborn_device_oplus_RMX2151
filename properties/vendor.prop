@@ -23,5 +23,12 @@ ro.sf.lcd_density=480
 ro.vendor.mtk.sensor.support=yes
 ro.vendor.init.sensor.rc=init.sensor_1_0.rc
 
+# SoC
+ro.soc.manufacturer=MediaTek
+ro.soc.model=MT6785
+
+# Power
+ro.vendor.perf.scroll_opt=true
+
 # FRP
 ro.frp.pst=/dev/block/platform/bootdevice/by-name/frp

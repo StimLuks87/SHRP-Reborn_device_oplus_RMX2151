@@ -28,3 +28,10 @@ The Realme 7 is a mid-range smartphone from Realme. It was announced and release
 ## Device picture
 
 ![Realme 7](https://fdn2.gsmarena.com/vv/pics/realme/realme-7-1.jpg)
+
+##*************************************************##
+#
+# Copyright (C) 2024 The Android Open Source Project
+# SPDX-License-Identifier: Apache-2.0
+#
+##*************************************************##

@@ -117,8 +117,7 @@ service keystore2 /system/bin/keystore2 /tmp/misc/keystore
     group root drmrpc readproc
     disabled
     seclabel u:r:recovery:s0
-    
-
+   
 #Add for OPPO FBE  
 
 service mobicore /vendor/bin/mcDriverDaemon --P1 /mnt/vendor/persist/mcRegistry \
@@ -261,7 +260,6 @@ on post-fs
     symlink /dev/block/sdb /dev/block/mmcblk0boot1
     symlink /dev/block/mmcblk0boot0 /dev/block/platform/bootdevice/by-name/preloader_a
     symlink /dev/block/mmcblk0boot1 /dev/block/platform/bootdevice/by-name/preloader_b
-
 
     # Support A/B feature for combo emmc and ufs OTA update
     symlink /dev/block/platform/bootdevice/by-name/preloader_a /dev/block/platform/bootdevice/by-name/preloader_emmc_a

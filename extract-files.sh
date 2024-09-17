@@ -1,15 +1,15 @@
 #!/bin/bash
-##******************************************##
+##*************************************************##
 #
-# Copyright (C) 2024 The LineageOS Project
-#
+# Copyright (C) 2024 The Android Open Source Project
 # SPDX-License-Identifier: Apache-2.0
 #
-##******************************************##
+##*************************************************##
+
 set -e
 
 DEVICE=RMX2155L1
-VENDOR=realme
+VENDOR=oplus
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"

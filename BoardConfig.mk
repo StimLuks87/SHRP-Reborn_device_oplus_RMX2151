@@ -1,11 +1,11 @@
-##******************************************##
+##*************************************************##
 #
-# Copyright (C) 2024 The LineageOS Project
-#
+# Copyright (C) 2024 The Android Open Source Project
 # SPDX-License-Identifier: Apache-2.0
 #
-##******************************************##
-DEVICE_PATH := device/realme/RMX2155L1
+##*************************************************##
+
+DEVICE_PATH := device/oplus/RMX2155L1
 
 ##** For building with minimal manifest **##
 ALLOW_MISSING_DEPENDENCIES := true
@@ -288,15 +288,17 @@ TW_INCLUDE_REPACKTOOLS := true
 ##** Configure Status bar icons "TWRP builds only" **##
 TW_Y_OFFSET := 28
 TW_H_OFFSET := -28
-TW_CUSTOM_CPU_POS := 185
+#TW_CUSTOM_CPU_POS := 185
 #TW_CUSTOM_BATTERY_POS := 916
 #TW_CUSTOM_CLOCK_POS := 520
 #TW_STATUS_ICONS_ALIGN := center
 
-#PB_DISABLE_DEFAULT_TREBLE_COMP := true
-#PB_TORCH_PATH := "/sys/class/flashlight/mt-flash-led1"
-#PB_TORCH_MAX_BRIGHTNESS := 31
-#PB_OFFICIAL := true
+PB_DISABLE_DEFAULT_DM_VERITY := true
+PB_DISABLE_DEFAULT_PATCH_AVB2 := true
+PB_DISABLE_DEFAULT_TREBLE_COMP := true
+PB_TORCH_PATH := "/sys/class/flashlight/mt-flash-led1"
+PB_TORCH_MAX_BRIGHTNESS := 31
+PB_OFFICIAL := true
 
 ##** Version/Maintainer **##
 MAINTAINER := Luks
@@ -309,13 +311,13 @@ TW_OVERRIDE_SYSTEM_PROPS := "ro.build.version.sdk"
 
 ##** Custom TWRP Versioning **##
 ##** device version is optional - the default value is "0" if nothing is set in device tree **##
-CUSTOM_TWRP_DEVICE_VERSION := RUI_V3.0
+#CUSTOM_TWRP_DEVICE_VERSION := RUI_V3.0
 
 ##** version prefix is optional - the default value is "LOCAL" if nothing is set in device tree **##
-CUSTOM_TWRP_VERSION_PREFIX := by_Luks
+#CUSTOM_TWRP_VERSION_PREFIX := by_Luks
 
-include device/common/version-info/custom_twrp_version.mk
+#include device/common/version-info/custom_twrp_version.mk
 
-ifeq ($(CUSTOM_TWRP_VERSION),)
-CUSTOM_TWRP_VERSION := $(shell date +%Y%m%d)-01
-endif
+#ifeq ($(CUSTOM_TWRP_VERSION),)
+#CUSTOM_TWRP_VERSION := $(shell date +%Y%m%d)-01
+#endif
