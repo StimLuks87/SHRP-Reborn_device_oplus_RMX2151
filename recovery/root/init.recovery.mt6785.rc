@@ -13,16 +13,6 @@ on init
     setprop persist.sys.firstlaunch false
     setprop ro.boot.build.security_patch 2099-12-31
 
-#EM of MT6360
-    chmod 0664 sys/kernel/debug/rt-regmap/mt6360_pmu.5-0034/data
-    chmod 0664 sys/kernel/debug/rt-regmap/mt6360_pmic.5-001a/data
-    chmod 0664 sys/kernel/debug/rt-regmap/mt6360_ldo.5-0064/data
-    chmod 0664 sys/kernel/debug/rt-regmap/mt6360-4e/data
-    chmod 0664 sys/kernel/debug/rt-regmap/mt6360_pmu.5-0034/reg_addr
-    chmod 0664 sys/kernel/debug/rt-regmap/mt6360_pmic.5-001a/reg_addr
-    chmod 0664 sys/kernel/debug/rt-regmap/mt6360_ldo.5-0064/reg_addr
-    chmod 0664 sys/kernel/debug/rt-regmap/mt6360-4e/reg_addr
-
 on fs
     install_keyring
     setprop crypto.ready 1    
@@ -147,13 +137,13 @@ service hal_cryptoeng_oplus /system/bin/hw/vendor.oplus.hardware.cryptoeng@1.0-s
     disabled
     seclabel u:r:recovery:s0  
 
-service keymaster-4-0-trustonic /system/bin/android.hardware.keymaster@4.0-service.trustonic
+service keymaster-4-0 /system/bin/android.hardware.keymaster@4.0-service.trustonic
     user root
     group root drmrpc
     disabled
     seclabel u:r:recovery:s0
 
-service vendor.gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
+service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled
@@ -179,8 +169,8 @@ service soter_hal /system/bin/hw/vendor.trustonic.soter@1.0-service
     
 on property:sys.listeners.registered=true && property:vendor.sys.listeners.registered=true
     start mobicore
-    start vendor.keymaster-4-0-trustonic
-    start vendor.gatekeeper-1-0
+    start keymaster-4-0
+    start gatekeeper-1-0
     start keymaster_attestation-1-1
     start tee-1-1
     start soter_hal
@@ -188,8 +178,8 @@ on property:sys.listeners.registered=true && property:vendor.sys.listeners.regis
 on property:hwservicemanager.ready=true
     start mobicore
     start hal_cryptoeng_oplus
-    start keymaster-4-0-trustonic
-    start vendor.gatekeeper-1-0
+    start keymaster-4-0
+    start gatekeeper-1-0
     start keymaster_attestation-1-1
     start tee-1-1
     start soter_hal
@@ -197,24 +187,24 @@ on property:hwservicemanager.ready=true
 on property:ro.crypto.state=unsupported
     stop mobicore
     stop hal_cryptoeng_oplus
-    stop keymaster-4-0-trustonic
-    stop vendor.gatekeeper-1-0
+    stop keymaster-4-0
+    stop gatekeeper-1-0
     stop servicemanager
     stop hwservicemanager
 
 on property:ro.crypto.state=unencrypted
     stop mobicore
     stop hal_cryptoeng_oplus
-    stop keymaster-4-0-trustonic
-    stop vendor.gatekeeper-1-0
+    stop keymaster-4-0
+    stop gatekeeper-1-0
     stop servicemanager
     stop hwservicemanager
 
 on property:twrp.all.users.decrypted=true
     stop mobicore
     stop hal_cryptoeng_oplus
-    stop keymaster-4-0-trustonic
-    stop vendor.gatekeeper-1-0
+    stop keymaster-4-0
+    stop gatekeeper-1-0
     stop keymaster_attestation-1-1
     stop tee-1-1
     stop soter_hal
@@ -224,7 +214,7 @@ on property:enable.fbe.service=0
     stop hal_cryptoeng_oppo
     stop keymaster-4-0
     stop gatekeeperd
-    stop vendor.gatekeeper-1-0
+    stop gatekeeper-1-0
     stop servicemanager
     stop hwservicemanager
     

@@ -58,7 +58,8 @@ BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery
-BOARD_KERNEL_CMDLINE += loop.max_part=70
+BOARD_KERNEL_CMDLINE += loop.max_part=7
+BOARD_KERNEL_CMDLINE += kpti=off
 BOARD_KERNEL_BASE := 0x40078000                        
 BOARD_KERNEL_PAGESIZE := 2048   
 BOARD_KERNEL_OFFSET := 0x00008000                       
@@ -73,8 +74,10 @@ BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilts/dtb
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/kernel/kernel
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilts/dtbo/dtbo.img
 
+BOARD_INCLUDE_RECOVERY_DTBO := true
+BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-BOARD_INCLUDE_RECOVERY_DTBO := true  
+BOARD_RAMDISK_USE_LZ4 := true
 
 BOARD_MKBOOTIMG_ARGS += --base $(BOARD_KERNEL_BASE)
 BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_KERNEL_PAGESIZE)
@@ -297,27 +300,11 @@ PB_DISABLE_DEFAULT_DM_VERITY := true
 PB_DISABLE_DEFAULT_PATCH_AVB2 := true
 PB_DISABLE_DEFAULT_TREBLE_COMP := true
 PB_TORCH_PATH := "/sys/class/flashlight/mt-flash-led1"
-PB_TORCH_MAX_BRIGHTNESS := 31
-PB_OFFICIAL := true
+PB_TORCH_MAX_BRIGHTNESS := 1
+PB_OFFICIAL := false
 
 ##** Version/Maintainer **##
 MAINTAINER := Luks
 
 # Property Override
 TW_OVERRIDE_SYSTEM_PROPS := "ro.build.version.sdk"
-
-# Official Fix
-#TEMPORARY_DISABLE_PATH_RESTRICTIONS := true
-
-##** Custom TWRP Versioning **##
-##** device version is optional - the default value is "0" if nothing is set in device tree **##
-#CUSTOM_TWRP_DEVICE_VERSION := RUI_V3.0
-
-##** version prefix is optional - the default value is "LOCAL" if nothing is set in device tree **##
-#CUSTOM_TWRP_VERSION_PREFIX := by_Luks
-
-#include device/common/version-info/custom_twrp_version.mk
-
-#ifeq ($(CUSTOM_TWRP_VERSION),)
-#CUSTOM_TWRP_VERSION := $(shell date +%Y%m%d)-01
-#endif
